@@ -1,0 +1,219 @@
+<view class="container">
+
+
+  <swiper class="goodsimgs" indicator-dots="true" autoplay="true" interval="3000" duration="1000" hidden="{{selpiccolor!=0}}">
+    <swiper-item class="siPicList" wx:for="{{defpiclist}}" wx:key="{{item}}">
+      <image src="{{item}}" background-size="cover" lazy-load='true' mode="aspectFit"></image>
+    </swiper-item>
+  </swiper>
+  
+  <swiper class="goodsimgs" indicator-dots="true" autoplay="true" interval="3000" 
+   wx:for="{{colors}}" wx:key="name" duration="1000" hidden="{{selpiccolor!=item.id}}">
+    <swiper-item class="siPicList"wx:for="{{item.picList}}"wx:for-item="pic" wx:key="name">
+      <image src="{{pic}}" background-size="cover" lazy-load='true' mode="aspectFit"></image>
+    </swiper-item>
+  </swiper>
+
+  <view class="goods-attr">
+  <view class="goods-detail">
+      <view class="name goodsname">{{goods.name}}</view>
+      <view class="name goodscode">{{goods.code}}</view>
+  </view>
+  </view>
+
+  <view class="bgcolor-gray"></view>
+
+  <view class="goods-attr nopaddingb">
+  <view class="goods-detail">
+    <view  wx:for="{{colors}}" class="coloriconbox {{ colorid == item.id ? 'active' : ''}}" data-id="{{item.id}}" data-index="{{index}}" data-name="{{item.name}}" bindtap="switchcolorpic">
+      <image class="coloriconimg" src="{{item.iconurl}}" background-size="cover" lazy-load='true' mode="aspectFit"></image>
+    </view>
+    </view>
+  </view>
+
+<view class="bgcolor-gray"></view>
+
+  <view class="goods-attr">
+  <view class="goods-detail">
+    <view  wx:for="{{price.priceViewData}}" wx:key="name" class="" data-id="{{item.service.id}}" data-index="{{index}}" data-name="{{item.name}}">
+      <view  wx:if="{{item.blankDataList.length>0}}" wx:key="name" wx:for="{{item.blankDataList}}" class="" wx:for-item="row" wx:for-index="rowindex" >
+        <text  wx:for="{{row}}" class="" wx:key="name" wx:for-item="col" wx:for-index="colindex" >
+          <text class="{{colindex==0?'priceboxtitle':'pricebox'}}">{{col}}</text>
+        </text>
+      </view>
+      <view wx:if="{{item.decoDataList.length>0}}" wx:key="name"  wx:for="{{item.decoDataList}}" class="" wx:for-item="row" wx:for-index="rowindex" >
+        <text  wx:for="{{row}}" class="" wx:for-item="col" wx:for-index="colindex" >
+          <text class="{{colindex==0?'priceboxtitle':'pricebox'}}">{{col}}</text>
+        </text>
+      </view>
+    </view>
+  </view>
+  </view>
+
+<view class="bgcolor-gray"></view>
+
+<view class="tabTop">
+  <text class="tabTop-item {{seltab==0?'tabTop-item-sel':''}}" bindtap="tabchange" data-id="0">下单</text>
+  <text class="tabTop-item {{seltab==1?'tabTop-item-sel':''}}" bindtap="tabchange" data-id="1">详情</text>
+</view>
+
+<view class="goodsorderbar" hidden="{{seltab!=0}}">
+  <view class="">
+    <view class="goodsservice" >
+      <radio-group class="radio-group" bindchange="PriceServiceChange">
+        <radio class="radio radiomarginr" wx:for-items="{{price.ServicePriceList}}" wx:key="name" value="{{item.Id}}" checked="{{index==0}}">
+          <text>{{item.Name}}</text>
+        </radio>
+      </radio-group>
+    </view>
+
+    
+    <view class="goodscolor" >
+      <radio-group class="radio-group" bindchange="warehouseChange" data-id="100">
+        <radio class="radio radiomarginr" wx:for-items="{{warehouse}}" 
+         wx:key="{{item.id}}"  value="{{item.id}}" checked="{{index==0}}">
+          <text>{{item.name}}</text>
+        </radio>
+      </radio-group>
+    </view>
+    
+    <view class="goodscolor" >
+      <radio-group class="radio-group" bindchange="PriceColorChange" data-id="100">
+        <radio class="radio radiomarginr" wx:for-items="{{colors}}" 
+         wx:key="{{item.id}}"  value="{{item.id}}" checked="{{index==0}}">
+          <text>{{item.name}}</text>
+        </radio>
+      </radio-group>
+    </view>
+
+      <view class="goodsordertitle">
+        <text class="pricebox bsizebox">尺寸</text>
+        <text class="pricebox binvbox">库存</text>
+        <text class="pricebox bqtybox">购买数量</text>
+      </view>
+
+    <view class="goodsorder"  wx:for="{{propertys}}" data-id="item.Id" wx:key="{{item.Id}}"hidden="{{selcolor!=item.Id}}">
+      <view class="goodsorder" wx:for="{{item.PropertyList}}" class="" wx:for-item="row" wx:key="name" value="{{row.id}}" >
+        <text class="pricebox bsizebox">{{row.Name}}</text>
+        <view wx:for="{{row.warestock}}"  wx:for-item="w" data-selwid="{{selwarehouse}}" data-wid="{{w.warehouseid!=selwarehouse}}" hidden="{{w.warehouseid!=selwarehouse}}"   class="pricebox binvbox">{{w.stock}}</view>
+        <input value="0" class="txtqty pricebox bqtybox" type="number"
+           data-pid="{{row.Id}}" data-stock="{{row.Stock}}" bindinput="qtyChange" />
+      </view>
+      <view class="red">注：现有库存只是近似值，实际库存可能会有所不同。</view>
+    </view>
+
+    <view class="goodsdingzhi" >
+      <radio-group class="radio-group" bindchange="PriceImpChange" data-id="100">
+        <radio class="radio radiomarginr" value="0" checked="true">
+          <text>白板</text>
+        </radio>
+        <radio class="radio radiomarginr" wx:for-items="{{imp.ImprintList}}" 
+         wx:key="{{item.id}}"  value="{{item.id}}" >
+          <text>{{item.name}}</text>
+        </radio>
+      </radio-group>
+    </view>
+
+    <view class="goodspricesel img-info">
+      <view class="info">
+        <view class="c">
+          <view class="p"><text>总额：￥{{totalprice}}</text></view>
+          <view class="a" wx:if="{{productList.length>0}}">已选择：{{checkedSpecText}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="spec-con">
+      <view class="spec-item" wx:for="{{specificationList}}" wx:key="{{item.specification_id}}">
+        <view class="name">{{item.name}}</view>
+        <view class="values">
+          <view class="value {{vitem.checked ? 'selected' : ''}}" bindtap="clickSkuValue" wx:for="{{item.valueList}}" wx:for-item="vitem" wx:key="{{vitem.id}}" data-value-id="{{vitem.id}}" data-name-id="{{vitem.specification_id}}">{{vitem.value}}</view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</view>
+
+
+  <view class="section-nav section-attr" bindtap="switchAttrPop" hidden="true">
+    <view class="t">请选择规格数量</view>
+    <image class="i" src="../../static/images/address_right.png" background-size="cover"></image>
+  </view>
+  <!--<view class="section-nav section-act">
+      <view class="t">
+        <view class="label">1个促销:</view>
+        <view class="tag">万圣趴</view>
+        <view class="text">全场满499，额外送糖果</view>
+      </view>
+      <image class="i" src="../../static/images/address_right.png" background-size="cover"></image>
+    </view>-->
+  <view class="comments" wx:if="{{comment.count > 0}}">
+    <view class="h">
+      <navigator url="../comment/comment?valueId={{goods.id}}&typeId=0">
+        <text class="t">评价({{comment.count > 999 ? '999+' : comment.count}})</text>
+        <text class="i">查看全部</text>
+      </navigator>
+    </view>
+    <view class="b">
+      <view class="item">
+        <view class="info">
+          <view class="user">
+            <image src="{{comment.data.avatar}}"></image>
+            <text>{{comment.data.nickname}}</text>
+          </view>
+          <view class="time">{{comment.data.add_time}}</view>
+        </view>
+        <view class="content">
+          {{comment.data.content}}
+        </view>
+        <view class="imgs" wx:if="{{comment.data.pic_list.length > 0}}">
+          <image class="img" wx:for="{{comment.data.pic_list}}" wx:key="{{item.id}}" src="{{item.pic_url}}"></image>
+        </view>
+        <!-- <view class="spec">白色 2件</view> -->
+      </view>
+    </view>
+  </view>
+<view class="goodsdetailbar" hidden="{{seltab!=1}}">
+
+  <view class="goodsdetail">
+    <view class="detail" style="width:auto;" wx:for="{{description}}" >
+        <view class="">
+          {{item}}
+        </view>
+    </view>
+    <view class="l">
+      <view class="item" wx:for="{{attribute}}" wx:key="{{item.name}}">
+        <text class="left">{{item.name}}</text>
+        <text class="right">{{item.value}}</text>
+      </view>
+    </view>
+    </view>
+
+<view class="goodssize"> 
+  <view class="">尺寸表：</view>
+    <view  wx:for="{{size}}" class="" >
+      <view  wx:for="{{item}}" class="" wx:for-item="row" wx:for-index="rowindex" >
+        <text  wx:for="{{row}}" class="" wx:for-item="col" wx:for-index="colindex" >
+          <text class="{{colindex==0?'sizeboxtitle':'sizebox'}}">{{col}}</text>
+        </text>
+      </view>
+  </view>
+  </view>
+
+</view>
+</view>
+
+<view class="bottom-btn">
+  <view class="l l-collect" bindtap="addCannelCollect" wx:if="{{false}}">
+    <image class="icon" src="{{ collectBackImage }}"></image>
+  </view>
+  <view class="l l-cart">
+    <view class="box">
+      <text class="cart-count">{{cartGoodsCount}}</text>
+      <image bindtap="openCartPage" class="icon" src="/static/images/ic_menu_shoping_nor.png"></image>
+    </view>
+  </view>
+  <view class="c" hidden="true">立即购买</view>
+  <view class="r" bindtap="addToCart">加入购物车</view>
+</view>

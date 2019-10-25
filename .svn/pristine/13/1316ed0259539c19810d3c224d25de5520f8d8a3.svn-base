@@ -1,0 +1,170 @@
+page{
+  min-height: 100%;
+  background-color: #fff;
+}
+
+.container{
+    background: #f4f4f4;
+}
+.cate-nav{
+    position: fixed;
+    left:0;
+    top:0;
+    z-index: 1000;
+    background: #fff;
+}
+
+.cate-nav-body{
+    height: 84rpx;
+    white-space: nowrap;   
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    overflow: hidden;
+}
+
+.cate-nav .item{
+    display: inline-block;
+    height: 84rpx;
+    min-width: 130rpx;
+    padding: 0 15rpx;
+}
+
+.cate-nav .item .name{
+    display: block;
+    height: 84rpx;
+    padding: 0 20rpx;
+    line-height: 84rpx;
+    color: #333;
+    font-size: 30rpx;
+    width: auto;
+}
+
+.cate-nav .item.active .name{
+    color: #007a4c;
+    border-bottom: 2px solid #007a4c;
+}
+
+.cate-item{
+    margin-top: 10rpx;
+    height: auto;
+    overflow: hidden;
+    
+}
+
+.cate-item .h{
+    height: 80rpx;
+    line-height: 80rpx;
+    width: 750rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cate-item .line{
+  width: 40rpx;
+  height: 1px;
+  line-height: 80rpx;
+  background: #d9d9d9;
+  margin:0 10rpx;
+  display: inline-block;
+}
+
+.cate-item .h .name{
+    /*height: 35rpx;
+    margin-bottom: 18rpx;
+    font-size: 30rpx;*/
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cate-item .h .desc{
+    display: block;
+    height: 24rpx;
+    font-size: 24rpx;
+    color: #999;
+}
+
+.cate-item .b{
+  width: 750rpx;
+  padding: 20rpx 20rpx 0 20rpx;
+  height: auto;
+  overflow: hidden;
+  background: #fff;
+}
+
+.cate-item .b .item{
+  float: left;
+  background: #fff;
+  width: 345rpx;
+  margin-bottom: 20rpx;
+  /*padding-bottom: 33.333rpx;*/
+  height: auto;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cate-item .b .item:nth-child(2n + 1) {
+  margin-right: 20rpx;
+}
+
+.cate-item .b .item-b{
+  margin-left: 0rpx;
+}
+
+.cate-item .item .img{
+  width: 345rpx;
+  height: 345rpx;
+}
+
+.cate-item .item .name{
+  display: block;
+  width: 100%;
+  height: 42rpx;
+  line-height:42rpx;
+  /*margin: 11.5rpx 0 22rpx 0;*/
+  text-align: left;
+  overflow: hidden;
+  /*padding: 0 20rpx;
+  font-size: 30rpx;*/
+  color: #333;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cate-item .item .price{
+  display: block;
+  width: 100%;
+  height: 46rpx;
+  line-height: 46rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #b4282d;
+}
+.cate-item .item .price .l{
+  float: left;
+  width:40%;
+  text-align: left;
+}
+.cate-item .item .price .r{
+  float: right;
+  width:60%;
+  text-align: right;
+}
+.price-lowst-text{
+  font-size: 22rpx;
+  color: #999999;
+}
+.saletotal-text{
+  font-size: 22rpx;
+  color: #999999;
+}
+.price-red-text{
+  font-size: 30rpx;
+  color:#b4282d;
+}
+.cate-nav .item .catesel{
+  color:#007a4c;
+}

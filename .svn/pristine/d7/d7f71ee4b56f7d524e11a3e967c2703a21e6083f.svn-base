@@ -1,0 +1,23 @@
+<view class="content">
+    <view class = "logo">
+        <image mode="aspectFit" src="/images/logo.png"></image>
+    </view>
+    <view>
+        <view class="input-area">
+          <input id="username" name="username" bindinput="bindinputUsername" value="{{inputUserName}}" auto-focus maxlength='50' type="text" placeholder="登录邮箱" />
+          <input id="password" name="password" bindinput="bindinputPassword" value="{{inputPassword}}" maxlength='20' type="password" placeholder="密码" />
+        </view>
+        <view class="btn-area">
+            <!--<button  disabled="{{disabled}}" style="background-color:{{loginBtnBgBgColor}}"   formType="submit"  loading="{{btnLoading}}"> {{loginBtnTxt}} </button>-->
+            <button style="background-color:#007a4c;" bindtap="submitLogin" loading="{{btnLoading}}">登录</button>
+            <view class="txt-area">
+                <text class="forgot-password" bindtap="tapForgotPassword">忘记密码？</text>
+                <text class="register" bindtap="tapRegister">注册账号</text>
+                <text class="gohomepage" bindtap="tapGoHomePage">返回首页</text>
+            </view>
+        </view>
+    </view>
+
+    <!--<progress class="myprogress" percent="{{percent }}" color="{{color}}" active/>-->
+    
+</view>

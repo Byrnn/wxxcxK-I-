@@ -1,0 +1,65 @@
+ <view class="content">
+    <view class="add-address">
+<view class="form-title">联系人
+</view>
+
+</view>
+</view>
+
+
+<form bindsubmit="formSubmit" report-submit="true">
+
+<view class="add-address">
+
+      <view class="form-item">
+        姓名：<input placeholder="姓名:" value="{{accountAdd.Name}}" bindinput="bindinputName"></input>
+      </view>
+      <view class="form-item">
+            职位：<input placeholder="职位:" value="{{accountAdd.Title}}" bindinput="bindinputTitle"></input>
+        </view>
+      <view class="form-item">
+            电话：<input placeholder="电话:" value="{{accountAdd.Phone}}" bindinput="bindinputPhone"></input>
+        </view>
+      <view class="form-item">
+           手机：<input placeholder="手机:" value="{{accountAdd.MobilePhone}}" bindinput="bindinutMobilePhone"></input>
+        </view>
+        <view class="form-item">
+            登录邮箱:<input placeholder=" 登录邮箱：" value="{{accountAdd.Email}}" bindinput="bindinputEmail"></input>
+        </view>
+        <view class="form-item">
+         QQ:<input placeholder="QQ:" value="{{accountAdd.QQ}}" bindinput="bindinputQQ"></input>
+        </view>
+
+<!------接收群发功能↓-------->
+<!--blIsGetGroupSend-->
+  <!--接收群发-->
+<view class="form-item">
+  <!--选择框-->
+  <view class="select-list select-list-ownershiptype">
+    <!--选择条件-->
+    <view class="choice-bar">
+      <view bindtap="openIsGetGroupSend" class="chioce-item" hover-class="click-once-opaque">{{IsGetGroupSend}}
+      <image class="icon-chioce {{blIsGetGroupSend?'select-opened':'select-closed'}}" src="{{arrow_down}}"></image>
+      </view>
+      <!--选择区域是否隐藏-->
+      <cover-view class="chioce-list-ownershiptype sorting-list{{!blIsGetGroupSend?' chioce-list-hide':' chioce-list-show'}}">
+      <cover-view wx:for="{{IsGetGroupSendGroup}}" catchtap="onClickIsGetGroupSend"  wx:for-index="index" wx:for-item="item" wx:key="{{item.Id}}" data-index="{{index}}" data-key="{{item.Id}}" data-name="{{item.Name}}" class="sorting-item" hover-class="click-once">{{item.Name}}</cover-view>
+      </cover-view>
+    </view>
+  </view>
+  </view>
+  <!--接收群发-->
+ <!------接收群发功能↑-------->
+    <button bindtap="saveMessage">保存</button>
+   <button bindtap="navigateBack">返回</button>
+ <!-- <button class = "save" formType="submit" >保存2.0</button>-->
+
+<view class="bg-select-mask" bindtap="CancelIsGetGroupSend" wx:if="{{blIsGetGroupSend}}"></view>
+ </view>
+</form>
+
+
+
+
+
+

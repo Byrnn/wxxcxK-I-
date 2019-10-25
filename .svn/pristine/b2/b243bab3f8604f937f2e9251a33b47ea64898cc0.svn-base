@@ -1,0 +1,370 @@
+page{
+  min-height: 100%;
+  background-color: #fff;
+}
+
+.container{
+  min-height: 100%;
+  background-color: #fff;
+}
+
+.search-header{
+    position: fixed;
+    top: 0;
+    width: 750rpx;
+    height: 91rpx;
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 0 20rpx;
+    font-size: 29rpx;
+    color: #333;
+}
+
+.search-header .input-box{
+    position: relative;
+    margin-top: 16rpx;
+    float: left;
+    width: 0;
+    flex: 1;
+    height: 59rpx;
+    line-height: 59rpx;
+    padding: 0 20rpx;
+    background: #ededed;
+    border-radius: 8rpx;
+}
+
+.search-header .icon{
+    position: absolute;
+    top: 14rpx;
+    left: 20rpx;
+    width: 31rpx;
+    height: 31rpx;
+}
+
+.search-header .del{
+    position: absolute;
+    top: 3rpx;
+    right: 10rpx;
+    width: 53rpx;
+    height: 53rpx;
+    z-index: 10;
+}
+
+.search-header .keywrod{
+    position: absolute;
+    top: 0;
+    left: 40rpx;
+    width: 506rpx;
+    height: 59rpx;
+    padding-left: 30rpx;
+}
+
+.search-header .right{
+    margin-top: 24rpx;
+    margin-left: 31rpx;
+    margin-right: 6rpx;
+    width: 58rpx;
+    height: 43rpx;
+    line-height: 43rpx;
+    float: right;
+}
+
+.no-search{
+    height: auto;
+    overflow: hidden;
+    margin-top: 91rpx;
+}
+
+.serach-keywords{
+    background: #fff;
+    width: 750rpx;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 20rpx;
+}
+
+.serach-keywords .h{
+    padding: 0 20rpx;
+    height: 93rpx;
+    line-height: 93rpx;
+    width: 100%;
+    color: #999;
+    font-size: 29rpx;
+}
+
+.serach-keywords .title{
+    display: block;
+    width: 120rpx;
+    float: left;
+}
+
+.serach-keywords .icon{
+    margin-top: 19rpx;
+    float: right;
+    display: block;
+    margin-left: 511rpx;
+    height: 55rpx;
+    width: 55rpx;
+}
+
+.serach-keywords .b{
+    width: 750rpx;
+    height: auto;
+    overflow: hidden;
+    padding-left: 20rpx;
+}
+
+.serach-keywords .item{
+    display: inline-block;
+    width: auto;
+    height: 48rpx;
+    line-height: 48rpx;
+    padding:0 15rpx;
+    border: 1px solid #999;
+    margin: 0 31.25rpx 31.25rpx 0;
+    font-size: 24rpx;
+    color: #333;
+}
+
+.serach-keywords .item.active{
+    color: #007a4c;
+    border: 1px solid #007a4c;
+}
+
+.shelper-list{
+    width: 750rpx;
+    height: auto;
+    overflow: hidden;
+    background: #fff;
+    padding: 0 31.25rpx;
+}
+
+.shelper-list .item{
+    height: 93rpx;
+    width: 687.5rpx;
+    line-height: 93rpx;
+    font-size: 24rpx;
+    color: #333;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+
+.sort{
+    position: fixed;
+    top: 91rpx;
+    background: #fff;
+    width: 100%;
+    height: 78rpx;
+}
+
+.sort-box{
+    background: #fff;
+    width: 100%;
+    height: 78rpx;
+    overflow: hidden;
+    padding: 0 30rpx;
+    display: flex;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.sort-box .item{
+    height: 78rpx;
+    line-height: 78rpx;
+    text-align: center;
+    flex:1;
+    color: #333;
+    font-size: 30rpx;
+}
+
+.sort-box .item .txt{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #333;
+}
+
+.sort-box .item.active .txt{
+    color: #007a4c;
+}
+
+.sort-box .item.by-price{
+    background: url(http://www.kaiyii.com/images/WeChatApplet/no.png) 155rpx center no-repeat;
+    background-size: 15rpx 21rpx;
+}
+
+.sort-box .item.by-price.active.asc{
+    background: url(http://www.kaiyii.com/images/WeChatApplet/up.png) 155rpx center no-repeat;
+    background-size: 15rpx 21rpx;
+}
+
+.sort-box .item.by-price.active.desc{
+    background: url(http://www.kaiyii.com/images/WeChatApplet/down.png) 155rpx center no-repeat;
+    background-size: 15rpx 21rpx;
+}
+
+.sort-box-category{
+    background: #fff;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding: 40rpx 40rpx 0 0;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.sort-box-category .item{
+    height: 54rpx;
+    line-height: 54rpx;
+    text-align: center;
+    float: left;
+    padding: 0 16rpx;
+    margin: 0 0 40rpx 40rpx;
+    border: 1px solid #666;
+    color: #333;
+    font-size: 24rpx;
+}
+
+.sort-box-category .item.active{
+    color: #007a4c;
+    border: 1px solid #007a4c;
+}
+
+.cate-item{
+    margin-top: 170rpx;
+    height: auto;
+    overflow: hidden;
+}
+
+.cate-item .h{
+    height: 145rpx;
+    width: 750rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cate-item .h .name{
+    display: block;
+    height: 35rpx;
+    margin-bottom: 18rpx;
+    font-size: 30rpx;
+    color: #333;
+}
+
+.cate-item .h .desc{
+    display: block;
+    height: 24rpx;
+    font-size: 24rpx;
+    color: #999;
+}
+
+.cate-item .b{
+  width: 750rpx;
+  padding: 20rpx 20rpx 0;
+  height: auto;
+  overflow: hidden;
+}
+
+.cate-item .list-filter{
+    height: 80rpx;
+    width: 100%;
+    background: #fff;
+    /*margin-bottom: 6.25rpx;*/
+}
+
+.cate-item .b .item{
+  float: left;
+  background: #fff;
+  width: 345rpx;
+  margin-bottom: 20rpx;
+  /*padding-bottom: 33.333rpx;*/
+  height: auto;
+  overflow: hidden;
+  text-align: center;
+  /*padding:20rpx;*/
+}
+
+.cate-item .b .item:nth-child(2n + 1) {
+  margin-right: 20rpx;
+}
+
+.cate-item .b .item-b{
+  margin-left: 0rpx;
+}
+
+.cate-item .item .img{
+  width: 345rpx;
+  height: 345rpx;
+  margin-bottom:10rpx;
+}
+
+.cate-item .item .name{
+  display: block;
+  /*width: 365.625rpx;*/
+  height: 42rpx;
+  line-height: 42rpx;
+  /*margin: 11.5rpx 0 22rpx 0;*/
+  text-align: left;
+  overflow: hidden;
+  /*padding: 0 20rpx;
+  font-size: 30rpx;*/
+  color: #333;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cate-item .item .price{
+  display: block;
+  /*width: 365.625rpx;*/
+  height: 46rpx;
+  line-height: 46rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #b4282d;
+}
+
+.search-result-empty{
+    width: 100%;
+    height: 100%;
+    padding-top: 300rpx;
+}
+
+.search-result-empty .icon{
+    margin: 0 auto;
+    display: block;
+    width: 240rpx;
+    height: 240rpx;
+}
+
+.search-result-empty .text{
+    display: block;
+    width: 100%;
+    height: 40rpx;
+    font-size: 28rpx;
+    text-align: center;
+    color: #999;
+}
+
+.cate-item .item .price .l{
+  float: left;
+  width:40%;
+  text-align: left;
+}
+.cate-item .item .price .r{
+  float: right;
+  width:60%;
+  text-align: right;
+}
+.cate-item .price-lowst-text{
+  font-size: 22rpx;
+  color: #999999;
+}
+.cate-item .saletotal-text{
+  font-size: 22rpx;
+  color: #999999;
+}
+.cate-item .price-red-text{
+  font-size: 30rpx;
+  color:#b4282d;
+}

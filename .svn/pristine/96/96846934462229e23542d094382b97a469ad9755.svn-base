@@ -1,0 +1,33 @@
+<view class="container">
+    <view class="orders">
+        <navigator url="../orderDetail/orderDetail?id={{item.OrderId}}" class="order" wx:for="{{orderList}}" wx:key="{{item.OrderId}}">
+            <view class="h">
+                <view class="l">订单号：{{item.OrderId}}   ({{item.strOrderType}})</view>
+                <view class="r">{{item.strStatus}}</view>
+            </view>
+            <view class="h">
+                <view class="l">P.O.：{{item.PurchaseOrder}}</view>
+                <view class="r">{{item.CreateLocalDate}}</view>
+            </view>
+            <view class="goods" wx:for="{{item.OrderItemViewModelList}}" wx:key="{{gitem.OrderItemViewModelList.ItemId}}" wx:for-item="gitem">
+                <view class="img">
+                    <image src="{{gitem.PictureUrl}}" lazy-load='true' mode="aspectFit"></image>
+                </view>
+                <view class="info">
+                    <view class="name">{{gitem.OrderProductDesc}}</view>
+                    <view class="number">数量：{{gitem.Quantity}}</view>
+                </view>
+                <view class="status"></view>
+            </view>
+            <view class="b">
+                <view class="l">总额：{{item.CurrencySymbol}}{{item.strAmount}}</view>
+                <view class="r" style="display:none;">
+                    <button class="btn" data-order-index="{{index}}" catchtap="payOrder" wx:if="{{item.blShowPayBtn}}">去付款</button>
+                </view>
+            </view>
+        </navigator>
+    </view>
+</view>
+<view class='more'>
+  <button loading="{{loading}}" disabled="{{disabled}}" catchtap="setLoading">{{loadText}}</button>
+</view>

@@ -1,0 +1,697 @@
+const util = require('../../utils/util.js');
+const api = require('../../config/api.js');
+
+Page({
+  
+  data:{
+    registBtnTxt: "注册",
+    getMailCodeBtnTxt: "获取激活码",
+    registBtnBgBgColor:"#51805c",
+    getMailCodeBtnColor:"#51805c",
+    getMailCodeBtnTime:120,
+    btnLoading:false,
+    registDisabled:false,
+    mailCodeDisabled:false,
+    inputUserName: '',
+    inputUserTitle: '',
+    inputUserEmail: '',
+    inputMailCode: '',
+    inputPassword: '',
+    inputPasswordCheck: '',
+    inputTelPhone: '',
+    inputMobilePhone: '',
+    inputQQNum: '',
+    inputCompanyName: '',
+    OwnerShipsTypeList:[],
+    CompanyTypeList:[],
+    inputCompanyEmail: '',
+    inputCompanyAddress: '',
+    inputCompanyPostcode: '',
+    inputCompanyPhone: '',
+    inputCompanyWebsite: '',
+    blShowGetCodeBtn:true,
+    mailCodeCountdown: 300,
+    CountryId: 0,
+    StateProvinceId: 0,
+    CityId: 0,
+    CountryName: '',
+    State: '',
+    City: '',
+    openSelectRegion: false,
+    selectRegionList: [
+      { Id: 0, NameCn: '国家', parent_id: 0, type: 1 },
+      { Id: 0, NameCn: '省份', parent_id: 0, type: 2 },
+      { Id: 0, NameCn: '城市', parent_id: 0, type: 3 }
+    ],
+    regionType: 1,
+    regionList: [],
+    selectRegionDone: false,
+    arrow_down: "/static/images/arrow_down.png",
+    address_right: "/static/images/address_right.png",
+    blOpenOwnerShip: false,
+    blOpenCompanyType: false,
+    selectedOpenOwnerShipId: 0,
+    selectedOpenOwnerShipName: '公司性质(必选)',
+    selectedCompanyTypeId: 0,
+    selectedCompanyTypeName: '业务类型(必选)',
+  },
+  onLoad:function(options){
+    // 页面初始化 options为页面跳转所带来的参数
+    this.getRegisterData();
+    this.getCountryList();
+  },
+  onReady:function(){
+    // 页面渲染完成
+    
+  },
+  onShow:function(){
+    // 页面显示
+    
+  },
+  onHide:function(){
+    // 页面隐藏
+    
+  },
+  onUnload:function(){
+    // 页面关闭
+    
+  },
+  bindinputUserName(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputUserName: inputValue
+    });
+  },
+  bindinputUserTitle(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputUserTitle: inputValue
+    });
+  },
+  bindinputPassword(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputPassword: inputValue
+    });
+  },
+  bindinputPasswordCheck(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputPasswordCheck: inputValue
+    });
+  },
+  bindinputTelPhone(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputTelPhone: inputValue
+    });
+  },
+  bindinputMobilePhone(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputMobilePhone: inputValue
+    });
+  },
+  bindinputQQNum(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputQQNum: inputValue
+    });
+  },
+  bindinputUserEmail(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputUserEmail: inputValue
+    });
+  },
+  bindinputMailCode(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputMailCode: inputValue
+    });
+  },
+  bindinputCompanyName(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputCompanyName: inputValue
+    });
+  },
+  bindinputCompanyEmail(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputCompanyEmail: inputValue
+    });
+  },
+  bindinputCompanyAddress(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputCompanyAddress: inputValue
+    });
+  },
+  bindinputCompanyPostcode(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputCompanyPostcode: inputValue
+    });
+  },
+  bindinputCompanyPhone(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputCompanyPhone: inputValue
+    });
+  },
+  bindinputCompanyWebsite(event) {
+    var inputValue = event.detail.value;
+    this.setData({
+      inputCompanyWebsite: inputValue
+    });
+  },
+  submitRegist(){
+    let that = this;
+
+    if (that.data.inputUserName == "") {
+      util.showErrorToast('请填写姓名');
+      return false;
+    }
+    if (that.data.inputPassword == "") {
+      util.showErrorToast('请填写密码');
+      return false;
+    }
+    else if (that.data.inputPassword.length < 6 || that.data.inputPassword.length>20){
+      util.showErrorToast('密码长度为6-20位');
+      return false;
+    }
+    if (that.data.inputPassword != that.data.inputPasswordCheck) {
+      util.showErrorToast('两次密码不一致');
+      return false;
+    }
+    var regEmail = util.regexConfig().email;
+    if (that.data.inputUserEmail == "" || !regEmail.test(that.data.inputUserEmail)) {
+      util.showErrorToast('请正确填写邮箱');
+      return false;
+    }
+    if (that.data.inputMailCode == "") {
+      util.showErrorToast('请填写激活码');
+      return false;
+    }
+    if (that.data.inputCompanyName == "") {
+      util.showErrorToast('请填公司名称');
+      return false;
+    }
+    if (that.data.selectedOpenOwnerShipId <=0 ) {
+      util.showErrorToast('请选择公司性质');
+      return false;
+    }
+    if (that.data.selectedCompanyTypeId <= 0) {
+      util.showErrorToast('请选择业务类型');
+      return false;
+    }
+    if (that.data.inputCompanyEmail == "" || !regEmail.test(that.data.inputCompanyEmail)) {
+      util.showErrorToast('公司邮箱有误');
+      return false;
+    }
+    if (that.data.CountryId <= 0 || that.data.StateProvinceId <= 0) {
+      util.showErrorToast('请选择所在地');
+      return false;
+    }
+    if (that.data.inputCompanyAddress == "") {
+      util.showErrorToast('请填写详细地址');
+      return false;
+    }
+    /*if (that.data.inputCompanyPostcode == "") {
+      util.showErrorToast('请填邮编');
+      return false;
+    }*/
+    if (that.data.inputCompanyPhone == "") {
+      util.showErrorToast('请填写公司电话');
+      return false;
+    }
+
+    util.request(api.Register, {
+      UserName: that.data.inputUserName,
+      UserTitle: that.data.inputUserTitle,
+      UserEmail: that.data.inputUserEmail,
+      MailCode: that.data.inputMailCode,
+      Password: that.data.inputPassword,
+      TelPhone: that.data.inputTelPhone,
+      MobilePhone: that.data.inputMobilePhone,
+      QQNum: that.data.inputQQNum,
+      CompanyName: that.data.inputCompanyName,
+      OwnerShipsTypeId: that.data.selectedOpenOwnerShipId,
+      CompanyTypeId: that.data.selectedCompanyTypeId,
+      CompanyEmail: that.data.inputCompanyEmail,
+      CountryId: that.data.CountryId,
+      StateId: that.data.StateProvinceId,
+      CityId: that.data.CityId,
+      CompanyAddress: that.data.inputCompanyAddress,
+      CompanyPostcode: that.data.inputCompanyPostcode,
+      CompanyWebsite: that.data.inputCompanyWebsite,
+      CityId: that.data.CityId, 
+    }, 'POST').then(function (res) {
+      if (res.errno === 0) {
+        wx.showModal({
+          title: '注册成功',
+          showCancel: false,
+          content: res.errMsg,
+          success: function (res) {
+            if (res.confirm) {
+              wx.redirectTo({
+                url: '/pages/login/index'
+              });
+            };
+          }
+        });
+      }
+      else {
+        util.showErrorToast(res.errMsg);
+      }
+    });
+
+    /*var flag = this.checkUserName(param.userEmail)&&this.checkPassword(param)&&this.checkMailCode(param) 
+    var that = this;
+    if(flag){
+        this.setregistData1();
+        setTimeout(function(){
+          wx.showToast({
+            title: '成功',
+            icon: 'success',
+            duration: 1500
+          });
+          that.setregistData2();
+          that.redirectTo(param);
+        },2000);
+    }*/
+  },
+  setregistData1:function(){
+    this.setData({
+      registBtnTxt:"注册中",
+      registDisabled: !this.data.registDisabled,
+      registBtnBgBgColor:"#999",
+      btnLoading:!this.data.btnLoading
+    });
+  },
+  setregistData2:function(){
+    this.setData({
+      registBtnTxt:"提 交",
+      registDisabled: !this.data.registDisabled,
+      registBtnBgBgColor:"#51805c",
+      btnLoading:!this.data.btnLoading
+    });
+  },
+  getMailCode: function () {
+    if (!this.data.mailCodeDisabled)
+    {
+      var inputUserEmail = this.data.inputUserEmail;
+      var regEmail = util.regexConfig().email;
+      if (inputUserEmail == "" || !regEmail.test(inputUserEmail)) {
+        util.showErrorToast('请填写正确邮箱');
+        return false;
+      }
+
+      var that = this;
+      that.setData({
+        getMailCodeBtnTxt: "正在发送...",
+        getMailCodeBtnColor: "#999",
+        mailCodeDisabled: true
+      });
+
+      util.request(api.SendActiveCode, {
+        UserEmail: inputUserEmail,
+      }, 'POST').then(function (res) {
+        console.log(res);
+        wx.showModal({
+          title: '提示',
+          showCancel: false,
+          content: res.errMsg
+        });
+
+        if(res.errno==0)
+        {
+          var count = that.data.getMailCodeBtnTime;
+          var si = setInterval(function () {
+            if (count > 0) {
+              count--;
+              that.setData({
+                getMailCodeBtnTxt: count+"秒后可重发",
+                getMailCodeBtnColor: "#999",
+                mailCodeDisabled: true
+              });
+            } else {
+              that.setData({
+                getMailCodeBtnTxt: "获取激活码",
+                getMailCodeBtnColor: "#51805c",
+                mailCodeDisabled: false
+              });
+              count = that.data.getMailCodeBtnTime;
+              clearInterval(si);
+            }
+          }, 1000);
+        }
+        else{
+          that.setData({
+            getMailCodeBtnTxt: "获取激活码",
+            getMailCodeBtnColor: "#51805c",
+            mailCodeDisabled: false
+          });
+        }
+      });
+
+      
+    }
+  },
+  checkMailCode:function(param){
+    var mailCode = param.mailCode.trim();
+    var tempMailCode = '000000';//演示效果临时变量，正式开发需要通过wx.request获取
+    if(mailCode!=tempMailCode){
+      wx.showModal({
+        title: '提示',
+        showCancel:false,
+        content: '请输入正确的短信验证码'
+      });
+      return false;
+    }else{
+      return true;
+    }
+  },
+  redirectTo:function(param){
+    //需要将param转换为字符串
+    param = JSON.stringify(param);
+    wx.redirectTo({
+      url: '../main/index?param='+ param//参数只能是字符串形式，不能为json对象
+    })
+  },
+
+  setRegionDoneStatus() {
+    let that = this;
+    let doneStatus = that.data.selectRegionList.every(item => {
+      console.log("item.type=" + item.type + " | id=" + item.Id);
+      if (item.type != 3) {
+        return item.Id != 0;
+      }
+      else {
+        return true;
+      }
+    });
+
+    that.setData({
+      selectRegionDone: doneStatus
+    })
+
+  },
+  chooseRegion() {
+    let that = this;
+    this.setData({
+      openSelectRegion: !this.data.openSelectRegion
+    });
+
+    //设置区域选择数据
+    console.log(that.data.CountryId + " | " + that.data.StateProvinceId + " | " + that.data.CityId);
+    if (that.data.CountryId > 0 && that.data.StateProvinceId > 0 && that.data.CityId > 0) {
+      let selectRegionList = this.data.selectRegionList;
+      selectRegionList[0].Id = that.data.CountryId;
+      selectRegionList[0].NameCn = that.data.CountryName;
+      selectRegionList[0].parent_id = 0;
+
+      selectRegionList[1].Id = that.data.StateProvinceId;
+      selectRegionList[1].NameCn = that.data.State;
+      selectRegionList[1].parent_id = that.data.CountryId;
+
+      selectRegionList[2].Id = that.data.CityId;
+      selectRegionList[2].NameCn = that.data.City;
+      selectRegionList[2].parent_id = that.data.StateProvinceId;
+
+      this.setData({
+        selectRegionList: selectRegionList,
+        regionType: 3
+      });
+
+      this.getCityList(that.data.StateProvinceId);
+    } else {
+      this.setData({
+        selectRegionList: [
+          { Id: 0, NameCn: '国家', parent_id: 0, type: 1 },
+          { Id: 0, NameCn: '省份', parent_id: 0, type: 2 },
+          { Id: 0, NameCn: '城市', parent_id: 0, type: 3 }
+        ],
+        regionType: 1
+      })
+      this.getCountryList();
+    }
+
+    this.setRegionDoneStatus();
+
+  },
+
+  selectRegionType(event) {
+    let that = this;
+    let regionTypeIndex = event.target.dataset.regionTypeIndex;
+    let selectRegionList = that.data.selectRegionList;
+
+    //判断是否可点击
+    if (regionTypeIndex + 1 == this.data.regionType || (regionTypeIndex - 1 >= 0 && regionTypeIndex - 1 < 2 && selectRegionList[regionTypeIndex - 1].Id <= 0)) {
+      return false;
+    }
+
+    this.setData({
+      regionType: regionTypeIndex + 1
+    })
+
+    let selectRegionItem = selectRegionList[regionTypeIndex];
+    if (regionTypeIndex == 0) {
+      this.getCountryList();
+    }
+    else if (regionTypeIndex == 1) {
+      this.getStateList(selectRegionItem.parent_id);
+    }
+    else {
+      this.getCityList(selectRegionItem.parent_id);
+    }
+
+    //this.setRegionDoneStatus();
+
+  },
+  selectRegion(event) {
+    let that = this;
+    let regionIndex = event.target.dataset.regionIndex;
+    let regionItem = this.data.regionList[regionIndex];
+    let regionType = regionItem.type;
+    let selectRegionList = this.data.selectRegionList;
+    selectRegionList[regionType - 1] = regionItem;
+
+
+    if (regionType != 3) {
+      this.setData({
+        selectRegionList: selectRegionList,
+        regionType: regionType + 1
+      })
+      if (regionType == 1) {
+        this.getStateList(regionItem.Id);
+      }
+      else if (regionType == 2) {
+        this.getCityList(regionItem.Id);
+      }
+    } else {
+      this.setData({
+        selectRegionList: selectRegionList
+      })
+    }
+
+    //重置下级区域为空
+    selectRegionList.map((item, index) => {
+      if (index > regionType - 1) {
+        item.Id = 0;
+        item.NameCn = index == 1 ? '省份' : '城市';
+        item.parent_id = 0;
+      }
+      return item;
+    });
+
+    this.setData({
+      selectRegionList: selectRegionList
+    })
+
+
+    that.setData({
+      regionList: that.data.regionList.map(item => {
+        //标记已选择的
+        if (that.data.regionType == item.type && that.data.selectRegionList[that.data.regionType - 1].Id == item.Id) {
+          item.selected = true;
+        } else {
+          item.selected = false;
+        }
+
+        return item;
+      })
+    });
+
+    this.setRegionDoneStatus();
+
+  },
+  doneSelectRegion() {
+    if (this.data.selectRegionDone === false) {
+      return false;
+    }
+
+    var selectRegionList = this.data.selectRegionList;
+    var FullRegion = selectRegionList.map(item => {
+      if (item.Id > 0) {
+        return item.NameCn;
+      }
+      else {
+        return "";
+      }
+    }).join('');
+
+    this.setData({
+      CountryId: selectRegionList[0].Id,
+      StateProvinceId: selectRegionList[1].Id,
+      CityId: selectRegionList[2].Id,
+      CountryName: selectRegionList[0].NameCn,
+      State: selectRegionList[1].NameCn,
+      City: selectRegionList[2].NameCn,
+      FullRegion: FullRegion,
+      openSelectRegion: false
+    });
+
+  },
+  cancelSelectRegion() {
+    this.setData({
+      openSelectRegion: false,
+      regionType: this.data.regionDoneStatus ? 3 : 1
+    });
+
+  },
+  getCountryList() {
+    let that = this;
+    let regionType = that.data.regionType;
+    util.request(api.GetCountryList, {}).then(function (res) {
+      if (res.errno === 0) {
+        that.setData({
+          regionList: res.CountryList.map(item => {
+
+            //标记已选择的
+            if (that.data.selectRegionList[0].Id == item.Id) {
+              item.selected = true;
+            } else {
+              item.selected = false;
+            }
+            item.type = 1;
+            return item;
+          })
+        });
+      }
+    });
+  },
+  getStateList(CountryId) {
+    let that = this;
+    let regionType = that.data.regionType;
+    util.request(api.GetStateList, {
+      CountryId: CountryId
+    }).then(function (res) {
+      if (res.errno === 0) {
+        that.setData({
+          regionList: res.StateList.map(item => {
+
+            //标记已选择的
+            if (that.data.selectRegionList[1].Id == item.Id) {
+              item.selected = true;
+            } else {
+              item.selected = false;
+            }
+            item.type = 2;
+            return item;
+          })
+        });
+      }
+    });
+  },
+  getCityList(StateId) {
+    let that = this;
+    let regionType = that.data.regionType;
+    util.request(api.GetCityList, {
+      StateId: StateId
+    }).then(function (res) {
+      if (res.errno === 0) {
+        that.setData({
+          regionList: res.CityList.map(item => {
+
+            //标记已选择的
+            if (that.data.selectRegionList[2].Id == item.Id) {
+              item.selected = true;
+            } else {
+              item.selected = false;
+            }
+            item.type = 3;
+            return item;
+          })
+        });
+        console.log(that.data.regionList);
+      }
+    });
+  },
+  getRegisterData() {
+    let that = this;
+    let regionType = that.data.regionType;
+    util.request(api.RegisterData, {}).then(function (res) {
+      if (res.errno === 0) {
+        console.log(res.OwnerShipsTypeList);
+        that.setData({
+          OwnerShipsTypeList: res.OwnerShipsTypeList,
+          CompanyTypeList: res.CompanyTypeList,
+          });
+      }
+    });
+  },
+  cancelSelectList: function (e) {
+    this.setData({
+      blOpenOwnerShip: false,
+      blOpenCompanyType: false,
+    });
+  },
+  openOwnerShipSelect: function (e) {
+    if (this.data.blOpenOwnerShip) {
+      this.setData({
+        blOpenOwnerShip: false,
+      });
+    }
+    else {
+      this.setData({
+        blOpenOwnerShip: true,
+      });
+    }
+  },
+  onClickOwnerShipsTypeListSelect: function (e) {
+    var index = e.currentTarget.dataset.index;
+    var selectedId = e.currentTarget.dataset.key;
+    var selectedName = e.currentTarget.dataset.name;
+    this.setData({
+      blOpenOwnerShip: false,
+      blOpenCompanyType: false,
+      selectedOpenOwnerShipId: selectedId,
+      selectedOpenOwnerShipName: selectedName
+    })
+  },
+  openCompanyTypeSelect: function (e) {
+    if (this.data.blOpenCompanyType) {
+      this.setData({
+        blOpenCompanyType: false,
+      });
+    }
+    else {
+      this.setData({
+        blOpenCompanyType: true,
+      });
+    }
+  },
+  onClickCompanyTypeListSelect: function (e) {
+    var index = e.currentTarget.dataset.index;
+    var selectedId = e.currentTarget.dataset.key;
+    var selectedName = e.currentTarget.dataset.name;
+    this.setData({
+      blOpenOwnerShip: false,
+      blOpenCompanyType: false,
+      selectedCompanyTypeId: selectedId,
+      selectedCompanyTypeName: selectedName
+    })
+  },
+})

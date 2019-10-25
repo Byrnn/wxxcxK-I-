@@ -1,0 +1,49 @@
+<view class="add-address">
+      <view class="form-item">
+            登录名：{{userInfo.AccountName}}
+      </view>
+      <view class="form-item">
+            姓名：<input class="input" bindinput="bindinputName" placeholder="姓名" value="{{userInfo.nickname}}" auto-focus/>
+        </view>
+      <view class="form-item">
+            职位：{{userInfo.Position}}
+        </view>
+      <view class="form-item">
+            电话：{{userInfo.Mobile}}
+        </view>
+      <view class="form-item">
+            QQ：{{userInfo.QQNumber}}
+        </view>
+      <view class="form-item">
+            接收群发：{{userInfo.blReceiveBroadcast}}
+        </view>
+    </view>
+    <view class="add-address">
+        <view class="form-item">
+            公司名：{{userInfo.ComapanyName}}
+        </view>
+        <view class="form-item">
+            性质：{{userInfo.CompanyOwnerShips}}
+        </view>
+        <view class="form-item">
+            邮箱：{{userInfo.CompanyEmail}}
+        </view>
+        <view class="form-item">
+            网址：{{userInfo.CompanyWebsite}}
+        </view>
+        <view class="form-item">
+            主要联系人：{{userInfo.CompanyMainContact}}
+        </view>
+        <view class="form-item">
+            所在地：{{userInfo.CompanyAddress}}
+        </view>
+        <view class="form-item">
+            邮编：{{userInfo.CompanyZipPostalCode}}
+        </view>
+        <view class="form-item">
+            业务类型：{{userInfo.CompanyCompanyType}}
+        </view>
+        <view class="form-item">
+            公司简介：{{userInfo.CompanyAboutUs}}
+        </view>
+    </view>

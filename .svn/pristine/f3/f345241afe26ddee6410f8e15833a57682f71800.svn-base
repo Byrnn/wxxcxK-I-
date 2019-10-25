@@ -1,0 +1,16 @@
+<view class="content">
+    <view class = "logo">
+        <image mode="aspectFit" src="/images/logo.png"></image>
+    </view>
+    <form bindsubmit="formSubmit">
+        <view class="input-area">
+          <input id="username" name="username" bindinput="bindinputUsername" value="{{inputUserName}}" auto-focus maxlength='50' type="text" placeholder="登录邮箱" />
+        </view>
+        <view class="btn-area">
+            <button  style="background-color:#007a4c;"  bindtap="submitFindUsername" loading="{{btnLoading}}"> 确认 </button>
+        </view>
+    </form>
+
+    <!--<progress class="myprogress" percent="{{percent }}" color="{{color}}" active/>-->
+    
+</view>

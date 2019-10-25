@@ -1,0 +1,146 @@
+/*const ApiRootUrl = 'http://101.132.191.13:8360/api/';
+module.exports = {
+  IndexUrl: ApiRootUrl + 'index/index', //首页数据接口
+  CatalogList: ApiRootUrl + 'catalog/index',  //分类目录全部分类数据接口
+  CatalogCurrent: ApiRootUrl + 'catalog/current',  //分类目录当前分类数据接口
+
+  AuthLoginByWeixin: ApiRootUrl + 'auth/loginByWeixin', //微信登录
+
+  GoodsCount: ApiRootUrl + 'goods/count',  //统计商品总数
+  GoodsList: ApiRootUrl + 'goods/list',  //获得商品列表
+  GoodsCategory: ApiRootUrl + 'goods/category',  //获得分类数据
+  GoodsDetail: ApiRootUrl + 'goods/detail',  //获得商品的详情
+  GoodsNew: ApiRootUrl + 'goods/new',  //新品
+  GoodsHot: ApiRootUrl + 'goods/hot',  //热门
+  GoodsRelated: ApiRootUrl + 'goods/related',  //商品详情页的关联商品（大家都在看）
+
+  BrandList: ApiRootUrl + 'brand/list',  //品牌列表
+  BrandDetail: ApiRootUrl + 'brand/detail',  //品牌详情
+
+  CartList: ApiRootUrl + 'cart/index', //获取购物车的数据
+  CartAdd: ApiRootUrl + 'cart/add', // 添加商品到购物车
+  CartUpdate: ApiRootUrl + 'cart/update', // 更新购物车的商品
+  CartDelete: ApiRootUrl + 'cart/delete', // 删除购物车的商品
+  CartChecked: ApiRootUrl + 'cart/checked', // 选择或取消选择商品
+  CartGoodsCount: ApiRootUrl + 'cart/goodscount', // 获取购物车商品件数
+  CartCheckout: ApiRootUrl + 'cart/checkout', // 下单前信息确认
+
+  OrderSubmit: ApiRootUrl + 'order/submit', // 提交订单
+  PayPrepayId: ApiRootUrl + 'pay/prepay', //获取微信统一下单prepay_id
+
+  CollectList: ApiRootUrl + 'collect/list',  //收藏列表
+  CollectAddOrDelete: ApiRootUrl + 'collect/addordelete',  //添加或取消收藏
+
+  CommentList: ApiRootUrl + 'comment/list',  //评论列表
+  CommentCount: ApiRootUrl + 'comment/count',  //评论总数
+  CommentPost: ApiRootUrl + 'comment/post',   //发表评论
+
+  TopicList: ApiRootUrl + 'topic/list',  //专题列表
+  TopicDetail: ApiRootUrl + 'topic/detail',  //专题详情
+  TopicRelated: ApiRootUrl + 'topic/related',  //相关专题
+
+  SearchIndex: ApiRootUrl + 'search/index',  //搜索页面数据
+  SearchResult: ApiRootUrl + 'search/result',  //搜索数据
+  SearchHelper: ApiRootUrl + 'search/helper',  //搜索帮助
+  SearchClearHistory: ApiRootUrl + 'search/clearhistory',  //搜索帮助
+
+  AddressList: ApiRootUrl + 'address/list',  //收货地址列表
+  AddressDetail: ApiRootUrl + 'address/detail',  //收货地址详情
+  AddressSave: ApiRootUrl + 'address/save',  //保存收货地址
+  AddressDelete: ApiRootUrl + 'address/delete',  //保存收货地址
+
+  RegionList: ApiRootUrl + 'region/list',  //获取区域列表
+
+  OrderList: ApiRootUrl + 'order/list',  //订单列表
+  OrderDetail: ApiRootUrl + 'order/detail',  //订单详情
+  OrderCancel: ApiRootUrl + 'order/cancel',  //取消订单
+  OrderExpress: ApiRootUrl + 'order/express', //物流详情
+
+  FootprintList: ApiRootUrl + 'footprint/list',  //足迹列表
+  FootprintDelete: ApiRootUrl + 'footprint/delete',  //删除足迹
+};*/
+
+const WebRootUrl = 'http://test.kaiyii.com:9001/';
+//const WebRootUrl = 'http://192.168.0.54:365/';
+//const WebRootUrl = 'http://192.168.0.205:1900/';
+const ApiRootUrl = WebRootUrl + 'XCXAPI/';
+module.exports = {
+  WebRootUrl: WebRootUrl,//网站域名
+  ApiRootUrl: ApiRootUrl,//网站API接口地址
+  IndexUrl: ApiRootUrl + 'Index', //首页数据接口
+  CatalogList: ApiRootUrl + 'CatalogIndex',  //分类目录全部分类数据接口
+  CatalogCurrent: ApiRootUrl + 'CurrentCatalog',  //分类目录当前分类数据接口
+
+  AuthLoginByWeixin: ApiRootUrl + 'LoginByWeChat', //微信登录
+  UserLogin: ApiRootUrl + 'UserLogin', //用户名登录
+  RegisterIndex: ApiRootUrl + 'RegisterIndex', //打开用户注册时获取基本信息
+  Register: ApiRootUrl + 'Register', //用户注册
+  UserBindWeChat: ApiRootUrl + 'UserBindWeChat', //用户绑定微信
+  UserUnbindWeChat: ApiRootUrl + 'UserUnbindWeChat', //用户绑定微信
+  SaveWeChatUserInfo: ApiRootUrl + 'SaveWeChatUserInfo', //保存用户微信信息
+  QuickLogin: ApiRootUrl + 'QuickLogin', //保存用户微信信息
+  ForgottenPassword: ApiRootUrl + 'ForgottenPassword', //保存用户微信信息
+  SendActiveCode: ApiRootUrl + 'SendActiveCode', //获取激活码
+  RegisterData: ApiRootUrl + 'RegisterData', //获取注册数据
+  UserLogout: ApiRootUrl + 'UserLogout', //获取注册数据
+  ChangePassword: ApiRootUrl + 'ChangePassword', //修改密码
+
+  GetCountryList: ApiRootUrl + 'GetCountryList', //获取国家列表
+  GetStateList: ApiRootUrl + 'GetStateList', //获取省份列表，需要参数CountryId
+  GetCityList: ApiRootUrl + 'GetCityList', //获取城市列表，需要参数StateId
+
+  GoodsCount: ApiRootUrl + 'GoodsCount',  //统计商品总数            //KY产品比较少，取消此项显示
+  GoodsList: ApiRootUrl + 'GoodsList',  //获得商品列表
+  GoodsListSe: ApiRootUrl + 'GoodsListSe',  //获得商品列表
+  GoodsCategory: ApiRootUrl + 'GoodsCategory',  //获得分类数据
+  GoodsDetail: ApiRootUrl + 'GoodsDetail',  //获得商品的详情
+  GoodsNew: ApiRootUrl + 'NewGoods',  //新品
+  GoodsHot: ApiRootUrl + 'HotGoods',  //热门
+  GoodsRelated: ApiRootUrl + 'RelatedGoods',  //商品详情页的关联商品（大家都在看）
+
+  BrandList: ApiRootUrl + 'BrandList',  //品牌列表
+  BrandDetail: ApiRootUrl + 'BrandDetail',  //品牌详情
+
+  CartList: ApiRootUrl + 'CartIndex', //获取购物车的数据
+  CartAdd: ApiRootUrl + 'CartAdd', // 添加商品到购物车
+  CartUpdate: ApiRootUrl + 'CartUpdate', // 更新购物车的商品
+  CartDelete: ApiRootUrl + 'CartDelete', // 删除购物车的商品
+  CartChecked: ApiRootUrl + 'CartChecked', // 选择或取消选择商品
+  CartGoodsCount: ApiRootUrl + 'CartGoodscount', // 获取购物车商品件数
+  CartCheckout: ApiRootUrl + 'CartCheckout', // 下单前信息确认
+  CalFreight: ApiRootUrl + 'CalFreight', // 计算运费
+
+  OrderSubmit: ApiRootUrl + 'OrderSubmit', // 提交订单
+  PayPrepayId: ApiRootUrl + 'PayPrepay', //获取微信统一下单prepay_id
+
+  CollectList: ApiRootUrl + 'CollectList',  //收藏列表
+  CollectAddOrDelete: ApiRootUrl + 'CollectAddOrDelete',  //添加或取消收藏
+
+  CommentList: ApiRootUrl + 'CommentList',  //评论列表
+  CommentCount: ApiRootUrl + 'CommentCount',  //评论总数
+  CommentPost: ApiRootUrl + 'CommentListPost',   //发表评论
+
+  TopicList: ApiRootUrl + 'TopicList',  //专题列表
+  TopicDetail: ApiRootUrl + 'TopicDetail',  //专题详情
+  TopicRelated: ApiRootUrl + 'TopicRelated',  //相关专题
+
+  SearchIndex: ApiRootUrl + 'SearchIndex',  //搜索页面数据
+  SearchResult: ApiRootUrl + 'SearchResult',  //搜索数据
+  SearchHelper: ApiRootUrl + 'SearchHelper',  //搜索帮助
+  SearchClearHistory: ApiRootUrl + 'SearchClearHistory',  //清空搜索历史
+
+  AddressList: ApiRootUrl + 'AddressList',  //收货地址列表
+  AddressDetail: ApiRootUrl + 'AddressDetail',  //收货地址详情
+  AddressSave: ApiRootUrl + 'AddressSave',  //保存收货地址
+  AddressDelete: ApiRootUrl + 'AddressDelete',  //保存收货地址
+
+  RegionList: ApiRootUrl + 'RegionList',  //获取区域列表
+
+  OrderList: ApiRootUrl + 'OrderList',  //订单列表
+  OrderDetail: ApiRootUrl + 'OrderDetail',  //订单详情
+  OrderCancel: ApiRootUrl + 'OrderCancel',  //取消订单
+  OrderExpress: ApiRootUrl + 'OrderExpress', //物流详情
+
+  FootprintList: ApiRootUrl + 'FootprintList',  //足迹列表
+  FootprintDelete: ApiRootUrl + 'FootprintDelete',  //删除足迹
+};

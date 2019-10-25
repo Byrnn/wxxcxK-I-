@@ -1,0 +1,186 @@
+ 
+ <!---标题-->
+ 
+ <view class="content">
+  <view class="logo">
+    <image mode="aspectFit" src="/images/logo.png"></image>
+  </view>
+</view>
+<!---个人信息-->
+<view class="add-address">
+<view class="form-title"><text class="line"></text>个人信息<text class="line"></text></view>
+<view class="add-form">
+
+<view class="form-item">
+<input value="{{inputUserName}}" bindinput="bindinputUserName" maxlength='50' type="text" placeholder="姓名(必填)" />
+</view>
+
+
+<view class="form-item">
+<input value="{{inputUserTitle}}" bindinput="bindinputUserTitle" maxlength='50' type="text" placeholder="职务" />
+</view>
+
+  
+<view class="form-item">
+  <input value="{{inputPassword}}" bindinput="bindinputPassword" maxlength='20' type="password" placeholder="密码(必填)" />
+</view>
+
+ 
+<view class="form-item">
+    <input value="{{inputPasswordCheck}}" bindinput="bindinputPasswordCheck" maxlength='20' type="password" placeholder="确认密码(必填)" />
+</view>
+
+
+
+ 
+<view class="form-item">
+ <input value="{{inputTelPhone}}" bindinput="bindinputTelPhone" maxlength='50' type="text" placeholder="电话" />
+</view>
+
+
+
+
+ 
+<view class="form-item">
+  <input value="{{inputMobilePhone}}" bindinput="bindinputMobilePhone" id="mobilePhone" name="mobilePhone" maxlength='50' type="text" placeholder="手机" />
+</view>
+
+
+
+
+
+ 
+<view class="form-item">
+ <input value="{{inputQQNum}}" bindinput="bindinputQQNum" maxlength='50' type="text" placeholder="QQ" />
+</view>
+
+
+
+<view class = "form-item">
+ <input value="{{inputUserEmail}}" bindinput="bindinputUserEmail" maxlength="100" type=" text" placeholder="登录邮箱(必填)"></input>
+</view>
+  
+<view class="form-item">
+   <input value="{{inputMailCode}}" bindinput="bindinputMailCode"  maxlength='10' type="text" placeholder="激活码(必填)" />
+   <button bindtap="getMailCode" disabled="{{mailCodeDisabled}}" style="background-color:#01ba66;" class="getMailCodeBtn">{{getMailCodeBtnTxt}}</button>
+</view>
+
+ <!--view class="form-item" style="height:100rpx;">
+      <button bindtap="getMailCode" disabled="{{mailCodeDisabled}}" style="background-color:{{getMailCodeBtnColor}}" class="getMailCodeBtn">{{getMailCodeBtnTxt}}</button>
+
+  </view-->
+
+
+<!---公司信息-->
+<view class="form-title">
+<text class="line"></text>公司信息<text class="line"></text>
+</view>
+ 
+<view class="form-item">
+    <input value="{{inputCompanyName}}" bindinput="bindinputCompanyName" maxlength='50' type="text" placeholder="公司名称(必填)" />
+</view>
+
+
+
+<view class="form-item">
+  <!--选择框-->
+  <view class="select-list select-list-ownershiptype">
+    <!--选择条件-->
+    <view class="choice-bar">
+      <view bindtap="openOwnerShipSelect" class="chioce-item" hover-class="click-once-opaque">{{selectedOpenOwnerShipName}}
+      <image class="icon-chioce {{blOpenOwnerShip?'select-opened':'select-closed'}}" src="{{arrow_down}}"></image>
+      </view>
+      <cover-view class="chioce-list-ownershiptype sorting-list{{!blOpenOwnerShip?' chioce-list-hide':' chioce-list-show'}}">
+      <cover-view wx:for="{{OwnerShipsTypeList}}" catchtap="onClickOwnerShipsTypeListSelect"  wx:for-index="index" wx:for-item="item" wx:key="{{item.Id}}" data-index="{{index}}" data-key="{{item.Id}}" data-name="{{item.Name}}" class="sorting-item" hover-class="click-once">{{item.Name}}</cover-view>
+      </cover-view>
+    </view>
+  </view>
+
+ <!--<picker bindchange="ChooseListCompanyIndex" value='index' name="sort" range="{{companyIndexArray}}">
+        <view class="picker">
+          <input id="companyindex" name="companyindex" placeholder="公司性质(必填)" value="{{companyIndexArray[index_CompanyIndex]}}"></input>
+        </view>
+      </picker>
+
+      <view class="section">
+        <view class="section__title"></view>
+  
+      </view>-->
+
+</view>
+
+
+<view class="form-item">
+  <!--选择框-->
+  <view class="select-list select-list-companytype">
+    <!--选择条件-->
+    <view class="choice-bar">
+      <view bindtap="openCompanyTypeSelect" data-item="1" class="chioce-item" hover-class="click-once-opaque">{{selectedCompanyTypeName}}
+      <image class="icon-chioce {{blOpenCompanyType?'select-opened':'select-closed'}}" src="{{arrow_down}}"></image>
+      </view>
+      <cover-view class="scroll-list-companytype chioce-list-companytype sorting-list{{!blOpenCompanyType?' chioce-list-hide':' chioce-list-show'}}">
+      <cover-view wx:for="{{CompanyTypeList}}" catchtap="onClickCompanyTypeListSelect"  wx:for-index="index" wx:for-item="item" wx:key="{{item.Id}}" data-index="{{index}}" data-key="{{item.Id}}" data-name="{{item.Name}}" class="sorting-item" hover-class="click-once">{{item.Name}}</cover-view>
+      </cover-view>
+    </view>
+  </view>
+
+     <!--<picker bindchange="ChooseListWorktype" value='index' name="sort" range="{{companyTypeArray}}">
+        <view class="picker">
+          <input id="worktype" name="worktype" maxlength='50' type="text" placeholder="业务类型(必填)" value="{{companyTypeArray[index_WorkType]}}" />
+        </view>
+      </picker>-->
+</view>
+
+
+
+
+<view class="form-item">
+ <input value="{{inputCompanyEmail}}" bindinput="bindinputCompanyEmail" maxlength='50' type="text" placeholder="邮箱(必填)" />
+</view>
+
+
+<view class="form-item">
+ <input class="input" value="{{FullRegion}}" disabled="true" bindtap="chooseRegion" placeholder="省份、城市、区县"/>
+</view>
+
+<view class="form-item">
+ <input value="{{inputCompanyAddress}}" bindinput="bindinputCompanyAddress" maxlength='50' type="text" placeholder="详细地址(必填)" />
+</view>
+
+<view class="form-item">
+  <input value="{{inputCompanyPostcode}}" bindinput="bindinputCompanyPostcode" maxlength='50' type="text" placeholder="邮编" />
+</view>
+
+<view class="form-item">
+  <input value="{{inputCompanyPhone}}" bindinput="bindinputCompanyPhone" maxlength='50' type="text" placeholder="公司电话(必填)" />
+</view>
+
+<view class="form-item">
+  <input value="{{inputCompanyWebsite}}" bindinput="bindinputCompanyWebsite" maxlength='100' type="text" placeholder="网址"/>
+</view>
+</view>
+
+<view class="form"> 
+  <button bindtap="submitRegist" disabled='{{registDisabled}}' class="csssubmitRegist" style="background-color:#007a4c;" >{{registBtnTxt}}</button>
+</view>
+
+
+<view class="region-select" wx:if="{{openSelectRegion}}">
+  <view class="hd">
+    <view class="region-selected">
+      <view class="item {{item.Id == 0 ? 'disabled' : ''}} {{(regionType -1) === index ? 'selected' : ''}}" bindtap="selectRegionType" data-region-type-index="{{index}}" wx:for="{{selectRegionList}}" wx:key="{{item.Id}}">{{item.NameCn}}</view>
+    </view>
+    <view class="done {{selectRegionDone ? '' : 'disabled'}}" bindtap="doneSelectRegion">确定</view>
+  </view>
+  <view class="bd">
+    <view class="region-list">
+      <view class="item {{item.selected ? 'selected' : ''}}" bindtap="selectRegion" data-region-index="{{index}}" wx:for="{{regionList}}" wx:key="{{item.Id}}">{{item.NameCn}}</view>
+    </view>
+  </view>
+</view>
+
+</view>
+
+
+<view class="bg-mask" bindtap="cancelSelectRegion" wx:if="{{openSelectRegion}}"></view>
+<view class="bg-select-mask" bindtap="cancelSelectList" wx:if="{{blOpenOwnerShip||blOpenCompanyType}}"></view>

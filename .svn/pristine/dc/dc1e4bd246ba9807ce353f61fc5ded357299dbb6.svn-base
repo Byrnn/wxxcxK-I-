@@ -1,0 +1,139 @@
+<view class="container">
+    <view class="address-box">
+        <view class="address-item" bindtap="selectAddress" wx:if="{{checkedAddress.Id > 0}}">
+            <view class="l">
+                <text class="name">{{checkedAddress.FirstName}}</text>
+                <text class="default" wx:if="{{checkedAddress.blDefault == true}}">默认</text>
+            </view>
+            <view class="m">
+                <text class="mobile">{{checkedAddress.MobileNumber}}</text>
+                <text class="address">{{checkedAddress.FullRegion + checkedAddress.Address1}}</text>
+            </view>
+            <view class="r">
+                <image src="{{address_right}}"></image>
+            </view>
+        </view>
+        <view class="address-item address-empty" bindtap="addAddress" wx:if="{{checkedAddress.Id <= 0}}">
+            <view class="m">
+               还没有收货地址，去添加
+            </view>
+            <view class="r">
+                <image src="{{address_right}}"></image>
+            </view>
+        </view>
+    </view>
+
+    <!--<view class="coupon-box">
+        <view class="coupon-item"> 
+            <view class="l">
+                <text class="name">请选择优惠券</text>
+                <text class="txt">{{couponList.length}}张</text>
+            </view>
+            <view class="r">
+                <image src="/static/images/address_right.png"></image>
+            </view>
+        </view>
+    </view>-->
+
+    <view class="ShipmentInfo-items">
+        <view class="item" wx:for="{{ShipmentInfoList}}" wx:for-index="sindex" wx:key="{{item.WarehouseId}}">            
+            <view class="info">
+                <view class="t">发货仓库: {{item.WarehouseName}}</view>
+                <view class="t" style="margin-bottom:10rpx;">送货方式: 
+                  <!--选择框-->
+                  <view class="select-list select-list-deliverytype">
+                    <!--选择条件-->
+                    <view class="choice-bar">
+                      <view bindtap="openDeliverySelect" data-item="{{sindex}}" class="chioce-item" hover-class="click-once-opaque">{{arrDeliverySelectedName[sindex]}}
+                      <image class="icon-chioce {{arrIsOpenDelivery[sindex]?'select-opened':'select-closed'}}" src="{{arrow_down}}"></image>
+                      </view>
+                      <view class="chioce-list-deliverytype sorting-list{{!arrIsOpenDelivery[sindex]?' chioce-list-hide':' chioce-list-show'}}" style="border-top: 1px solid #01b166;border-bottom: 1px solid #01b166;">
+                      <view wx:for="{{item.DeliveryPayTypeList}}"  data-sindex='{{sindex}}'  catchtap="onClickDeliveryPayTypeSelect"  wx:for-index="payindex" wx:for-item="payitem" wx:key="{{payitem.Id}}" data-payindex="{{payindex}}" class="sorting-item" hover-class="click-once">{{payitem.Name}}</view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+                <view class="t {{arrDeliverySelectedId[sindex]==2?'chioce-list-show':'chioce-list-hide'}}" style="margin-bottom:10rpx;">运输公司: 
+                  <!--选择框-->
+                  <view class="select-list  select-list-shippingcom" >
+                    <!--选择条件-->
+                    <view class="choice-bar">
+                      <view bindtap="openShippingCompanySelect" data-item="{{sindex}}" class="chioce-item" hover-class="click-once-opaque">{{arrShipComSelectedName[sindex]}}
+                      <image class="icon-chioce {{arrIsOpenShipCom[sindex]?'select-opened':'select-closed'}}" src="{{arrow_down}}"></image>
+                      </view>
+                      
+                        <view class="chioce-list-shippingcom sorting-list{{!arrIsOpenShipCom[sindex]?' chioce-list-hide':' chioce-list-show'}}">
+                          <scroll-view scroll-y="true" class="scroll-list-shippingcom">
+                          <view wx:for="{{item.ShippingCompanyList}}"  data-sindex='{{sindex}}'  catchtap="onClickShippingCompanySelect"  wx:for-index="shipcomindex" wx:for-item="shipcomitem" wx:key="{{shipcomitem.Id}}" data-shipcomindex="{{shipcomindex}}" class="sorting-item" hover-class="click-once">{{shipcomitem.Name}}</view>
+                          
+                      </scroll-view>
+                        </view>
+                    </view>
+                  </view>
+                  <view class="b" style="margin-top:10rpx;">运费: {{CartInfomation.CurrencySymbol}}{{arrFreightPrice[sindex]}}{{arrFreightErrInfo[sindex]}}</view>
+                </view>
+                <view class="t red {{arrDeliverySelectedId[sindex]==3?'chioce-list-show':'chioce-list-hide'}}">
+                  注：如果选择“到付/自提”，必须要在订单备注里说明清楚要求，包括到付物流公司和自提方式和要求。
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="goods-items">
+        <view class="item" wx:for="{{checkedGoodsList}}" wx:key="{{item.Id}}">
+            <view class="img">
+                <image src="{{item.PictureUrl}}"></image>
+            </view>
+            <view class="info">
+                <view class="t">
+                    <text class="name">{{item.ProductName}}</text>
+                    <text class="number">x{{item.Quantity}}</text>
+                </view>
+                <view class="m">{{item.ColourName}} {{item.SizeName}}</view>
+                <view class="b">{{item.SaleTotalText}}</view>
+            </view>
+        </view>
+    </view>
+
+    <!--<view class="order-box">
+        <view class="order-item">
+            <view class="l">
+                <text class="name">商品合计</text>
+            </view>
+            <view class="r">
+                <text class="txt">{{CartInfomation.CurrencySymbol}}{{CartInfomation.TotalPrice}}</text>
+            </view>
+        </view>
+        <view class="order-item">
+            <view class="l">
+                <text class="name">运费</text>
+            </view>
+            <view class="r">
+                <text class="txt">￥{{totalFreightPrice}}</text>
+            </view>
+        </view>
+        <view class="order-item no-border">
+            <view class="l">
+                <text class="name">优惠券</text>
+            </view>
+            <view class="r">
+                <text class="txt">-￥{{couponPrice}}</text>
+            </view>
+        </view>
+    </view>-->
+    <view class="order-form">
+      <view>您的订单号:</view>
+      <view class="form-item">
+        <input class="input" bindinput="bindinputPurchaseOrder" value="{{PurchaseOrder}}" placeholder=""/>
+      </view>
+      <view>订单备注:</view>
+      <view class="form-item">
+        <textarea class="inputtextarea" bindinput="bindinputOrderNotes" value="{{OrderNotes}}" placeholder=""/>
+      </view>
+    </view>
+    <cover-view class="order-total">
+        <cover-view class="l">总额：{{CartInfomation.CurrencySymbol}}{{totalPriceIncludFreight}} <text style="font-size:12px;color:#999;">(含运费: {{totalFreightPrice}})</text></cover-view>
+        <cover-view class="r" bindtap="submitOrder">提交订单</cover-view>
+    </cover-view>
+</view>
+<view class="bg-mask-order-total"></view>

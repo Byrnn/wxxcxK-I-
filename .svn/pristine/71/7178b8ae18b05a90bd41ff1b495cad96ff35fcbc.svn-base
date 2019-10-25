@@ -1,0 +1,204 @@
+<view class="add-address">
+      <view class="form-item">
+            登录名：<input class="input" bindinput="bindinputAccountName" placeholder="登录名：" value="{{userInfo.AccountName}}" auto-focus/>
+      </view>
+      <view class="form-item">
+            姓名：<input class="input" bindinput="bindinputName" placeholder="姓名" value="{{userInfo.nickname}}" auto-focus/>
+        </view>
+      <view class="form-item">
+            职位：<input class="input" bindinput="bindinputUserTitle" placeholder="职位：" value="{{userInfo.Position}}" auto-focus/>
+        </view>
+      <view class="form-item">
+            电话：<input class="input" bindinput="bindinputCompanyPhone" placeholder="电话：" value="{{userInfo.Mobile}}" auto-focus/>
+        </view>
+      <view class="form-item">
+            QQ：<input class="input" bindinput="inputQQNum" placeholder="QQ：" value="{{userInfo.QQNumber}}" auto-focus/>
+        </view>
+      <view class="form-item">
+            接收群发：{{userInfo.blReceiveBroadcast?"Yes":"No"}}
+        </view>
+ <!------接收群发功能↓-------->
+<view class="form-item">
+  <!--选择框-->
+  <view class="select-list select-list-ownershiptype">
+    <!--选择条件-->
+    <view class="choice-bar">
+      <view bindtap="openIsGetGroupSend" class="chioce-item" hover-class="click-once-opaque">{{IsGetGroupSend}}：{{userInfo.blReceiveBroadcast?"Yes":"No"}}
+      <image class="icon-chioce {{blIsGetGroupSend?'select-opened':'select-closed'}}" src="{{arrow_down}}"></image>
+      </view>
+      <!--选择区域是否隐藏-->
+      <cover-view class="chioce-list-ownershiptype sorting-list{{!blIsGetGroupSend?' chioce-list-hide':' chioce-list-show'}}">
+      <cover-view wx:for="{{IsGetGroupSendGroup}}" catchtap="onClickIsGetGroupSend"  wx:for-index="index" wx:for-item="item" wx:key="{{item.Id}}" data-index="{{index}}" data-key="{{item.Id}}" data-name="{{item.Name}}" class="sorting-item" hover-class="click-once">{{item.Name}}</cover-view>
+      </cover-view>
+    </view>
+  </view>
+  </view>
+ <!-----接收群发功能↑-------->
+    </view>
+    <view class="add-address">
+        <view class="form-item">
+            公司名：<input class="input" bindinput="bindinputCompanyName" placeholder="公司名：" value="{{userInfo.ComapanyName}}" auto-focus/>
+        </view>
+        
+        <view class="form-item">
+            性质：{{userInfo.CompanyOwnerShips}}
+        </view>
+          <view class="form-item">
+            业务类型：{{userInfo.CompanyCompanyType}}
+        </view>
+
+
+<!------------------------>
+
+ <!--公司性质↓-->
+
+<view class="form-item">
+  <!--选择框-->
+  <view class="select-list select-list-ownershiptype">
+    <!--选择条件-->
+    <view class="choice-bar">
+      <view bindtap="openOwnerShipSelect" class="chioce-item" hover-class="click-once-opaque">{{selectedOpenOwnerShipName}}
+      <image class="icon-chioce {{blOpenOwnerShip?'select-opened':'select-closed'}}" src="{{arrow_down}}"></image>
+      </view>
+      <cover-view class="chioce-list-ownershiptype sorting-list{{!blOpenOwnerShip?' chioce-list-hide':' chioce-list-show'}}">
+      <cover-view wx:for="{{OwnerShipsTypeList}}" catchtap="onClickOwnerShipsTypeListSelect"  wx:for-index="index" wx:for-item="item" wx:key="{{item.Id}}" data-index="{{index}}" data-key="{{item.Id}}" data-name="{{item.Name}}" class="sorting-item" hover-class="click-once">{{item.Name}}</cover-view>
+      </cover-view>
+    </view>
+  </view>
+
+
+
+</view>
+<!--公司性质↑-->
+<!--公司业务类型↓-->
+
+<view class="form-item">
+
+  <view class="select-list select-list-companytype">
+    <!--选择条件-->
+    <view class="choice-bar">
+      <view bindtap="openCompanyTypeSelect" data-item="1" class="chioce-item" hover-class="click-once-opaque">{{selectedCompanyTypeName}}
+      <image class="icon-chioce {{blOpenCompanyType?'select-opened':'select-closed'}}" src="{{arrow_down}}"></image>
+      </view>
+      <cover-view class="scroll-list-companytype chioce-list-companytype sorting-list{{!blOpenCompanyType?' chioce-list-hide':' chioce-list-show'}}">
+      <cover-view wx:for="{{CompanyTypeList}}" catchtap="onClickCompanyTypeListSelect"  wx:for-index="index" wx:for-item="item" wx:key="{{item.Id}}" data-index="{{index}}" data-key="{{item.Id}}" data-name="{{item.Name}}" class="sorting-item" hover-class="click-once">{{item.Name}}</cover-view>
+      </cover-view>
+    </view>
+  </view>
+
+   
+</view>
+<!--公司业务类型↑-->
+
+
+<!---->
+
+        <view class="form-item">
+            邮箱：<input class="input" bindinput="bindinputCompanyEmail" placeholder="邮箱：" value="{{userInfo.CompanyEmail}}" auto-focus/>
+        </view>
+        <view class="form-item">
+            网址：<input class="input" bindinput="bindinputCompanyWebsite" placeholder="网址：" value="{{userInfo.CompanyWebsite}}" auto-focus/>
+        </view>
+        <view class="form-item">
+            主要联系人：<input class="input" bindinput="bindinputCompanyWebsite" placeholder="主要联系人：" value="{{userInfo.CompanyMainContact}}" auto-focus/>
+        
+        </view>
+   
+<!--所在地↓--区域选择功能模块-->
+
+<view class="form-item">
+ <input class="input" value="{{FullRegion}}" disabled="true" bindtap="chooseRegion" placeholder="国家 省份 城市"/>
+  <image class="icon-chioce {{blIsGetGroupSend?'select-opened':'select-closed'}}" src="{{arrow_down}}" bindtap="chooseRegion" ></image>
+</view>
+
+
+
+<view class="region-select" wx:if="{{openSelectRegion}}">
+  <view class="hd">
+    <view class="region-selected">
+      <view class="item {{item.Id == 0 ? 'disabled' : ''}} {{(regionType -1) === index ? 'selected' : ''}}" bindtap="selectRegionType" data-region-type-index="{{index}}" wx:for="{{selectRegionList}}" wx:key="{{item.Id}}">{{item.NameCn}}|</view>
+    </view>
+    <view class="done {{selectRegionDone ? '' : 'disabled'}}" bindtap="doneSelectRegion">确定</view>
+  </view>
+  <view class="bd">
+    <view class="region-list">
+      <view class="item {{item.selected ? 'selected' : ''}}" bindtap="selectRegion" data-region-index="{{index}}" wx:for="{{regionList}}" wx:key="{{item.Id}}">{{item.NameCn}}</view>
+    </view>
+  </view>
+</view>
+
+
+
+<!--所在地↑---区域选择功能模块-->
+
+
+        <view class="form-item">
+            邮编：<input class="input" bindinput="bindinputPostCode" placeholder="邮编：" value="{{userInfo.CompanyZipPostalCode}}" auto-focus/>
+        </view>
+      
+        <view class="form-item">
+            公司简介：{{userInfo.CompanyAboutUs}}<input class="input" bindinput="bindinputIntroduct" placeholder="公司简介：" value="{{userInfo.CompanyAboutUs}}" auto-focus/>
+        </view>
+    </view>
+  <view class="form"> 
+  <button  bindtap="saveMessage">保存</button>
+</view>
+ <view class="content">
+    <view class="add-address">
+
+
+
+
+<view class="form-title">联系人</view>
+
+</view>
+</view>
+
+
+<view class="add-address">
+      <view class="form-item">
+        姓名：<input placeholder="姓名:"></input>
+      </view>
+      <view class="form-item">
+            职位：<input placeholder="职位:"></input>
+        </view>
+      <view class="form-item">
+            电话：<input placeholder="电话:"></input>
+        </view>
+      <view class="form-item">
+           手机：<input placeholder="手机:"></input>
+        </view>
+      <view class="form-item">
+            接收群发：<input placeholder="接收群发:"></input>
+        </view>
+    
+    
+        <view class="form-item">
+            登录邮箱:<input placeholder=" 登录邮箱："></input>
+        </view>
+        <view class="form-item">
+         QQ:<input placeholder="QQ:"></input>
+        </view>
+    </view>
+
+
+   <view class="form"> 
+  <button  bindtap="addMessage">添加联系人</button>
+</view>
+   
+
+
+<!-- 取消选择--↓-->
+<view class="bg-mask" bindtap="cancelSelectRegion" wx:if="{{openSelectRegion}}"></view>
+<view class="bg-select-mask" bindtap="cancelSelectList" wx:if="{{blOpenOwnerShip||blOpenCompanyType}}"></view>
+
+<!-- 取消选择---↑>
+
+ 
+
+
+
+
+
+
+

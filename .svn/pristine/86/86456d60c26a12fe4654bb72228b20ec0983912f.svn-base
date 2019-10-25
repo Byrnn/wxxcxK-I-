@@ -1,0 +1,58 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="search">
+    <navigator url="/pages/search/search" class="input">
+      <image class="icon"></image>
+      <text class="txt">商品搜索</text><!--商品搜索, 共{{goodsCount}}款好物-->
+    </navigator>
+  </view>
+  <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
+    <swiper-item wx:for="{{banner}}" wx:key="{{item.Id}}">
+      <navigator url="{{item.Link}}" style="display: flex;align-items: center;justify-content: center;">
+        <image src="{{item.PicUrl}}" background-size="cover" lazy-load='true' mode="aspectFit"></image>
+      </navigator>
+    </swiper-item>
+  </swiper>
+
+  <view class="m-menu">
+    <navigator class="item"  bindtap="onClickCatalog" url="/pages/catalog/catalog?id={{item.Id}}" wx:for="{{categoryList}}" wx:key="{{item.Id}}" data-key="{{item.Id}}" >
+      <image src="{{item.PicUrl}}" background-size="cover" lazy-load='true' mode="aspectFit"></image>
+      <text>{{item.Name}}</text>
+    </navigator>
+    <!--navigator class="item">
+    <image  bindtap="onClickCatalog" src="/static/images/more.png" url="/pages/catalog/catalog" background-size="cover" lazy-load='true' mode="aspectFit"></image>
+    <text>更多</text></navigator-->
+  </view>
+
+  <view class="a-section" wx:if="channel.length > 0">
+    <!--view class="h">
+      <text class="txt">专题精选</text>
+    </view-->
+    
+    <view class="good-grid" wx:for="{{channel}}" wx:key="{{item.Id}}">
+    <view style="height:20rpx; background:#f4f4f4;"></view>
+      <view class="h">
+      <text class="line"></text>
+        <view>
+          <text>{{item.Name}}</text>
+        </view>
+        <text class="line"></text>
+      </view>
+      <view class="b">
+        <block wx:for="{{item.ProductDetailList}}" wx:for-index="iindex" wx:for-item="iitem" wx:key="{{iitem.ProSampleModel.Id}}">
+          <navigator url="../goods/goods?id={{iitem.ProSampleModel.Id}}" class="item">
+            <image class="img" src="{{iitem.PictureUrl}}" background-size="cover"></image>
+            <text class="name">{{iitem.ProSampleModel.Code}}</text>
+            <view class="name">{{iitem.ProSampleModel.Name}}</view>
+            
+            <view class="price">
+            <view class="l"><text class="price-lowst-text">低至</text><text class="price-red-text">￥{{iitem.LowestUnitPrice}}</text></view>
+            <view class="r"><text class="saletotal-text">{{iitem.ProSampleModel.SaleTotal>0?" (热销"+iitem.ProSampleModel.SaleTotalStr+")":""}}</text></view>
+            </view>
+          </navigator>
+        </block>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,246 @@
+var api = require('../config/api.js');
+var app = getApp();
+
+function formatTime(date) {
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+
+  var hour = date.getHours()
+  var minute = date.getMinutes()
+  var second = date.getSeconds()
+
+
+  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+
+function formatNumber(n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+
+/**
+ * 封装微信的的request
+ */
+function request(url, data = {}, method = "GET", pageObj = null,blShowLoading=false) {
+  var that = this;
+  if (method==null)
+  {
+    method="GET";
+  }
+  if(blShowLoading)
+  {
+    wx.showLoading({
+      title: '正在加载...',
+    });
+  }
+  return new Promise(function (resolve, reject) {
+    wx.request({
+      url: url,
+      data: data,
+      method: method,
+      header: {
+        'Content-Type': 'application/json',
+        'Username': wx.getStorageSync('username'),
+        'SessionToken': wx.getStorageSync('token'),
+        'Username': app.globalData.userInfo.AccountName,
+        'SessionToken': app.globalData.token
+      },
+      success: function (res) {
+        if (blShowLoading) {
+          wx.hideLoading();
+        }
+        if (res.statusCode == 200) {
+
+          if (res.data.errno == 401) {
+            console.log("需要登录后才可以操作");
+            console.log(pageObj);
+            //需要登录后才可以操作
+            var goUrl = "/pages/login/index";
+            var goUrlArgs = "";
+            if (pageObj!=null)
+            {
+              goUrlArgs = that.getCurrentPageUrlWithArgs(pageObj);
+              if (goUrlArgs == null || goUrlArgs=="undefined")
+              {
+                goUrlArgs = "";
+              }
+            }
+            wx.navigateTo({
+              url: "/pages/login/index?frompage=" + goUrlArgs,
+            });
+            /*
+            let code = null;
+            return login().then((res) => {
+              code = res.code;
+              return getUserInfo();
+            }).then((userInfo) => {
+              //登录远程服务器
+              request(api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => {
+                if (res.errno === 0) {
+                  //存储用户信息
+                  wx.setStorageSync('userInfo', res.data.userInfo);
+                  wx.setStorageSync('token', res.data.token);
+
+                  resolve(res);
+                } else {
+                  reject(res);
+                }
+              }).catch((err) => {
+                reject(err);
+              });
+            }).catch((err) => {
+              reject(err);
+            })*/
+          } else {
+            resolve(res.data);
+          }
+        } else {
+          reject(res.errMsg);
+        }
+
+      },
+      fail: function (err) {
+        if (blShowLoading) {
+          wx.hideLoading();
+        }
+        reject(err)
+        console.log("failed")
+      }
+    })
+  });
+}
+
+function get(url, data = {}) {
+  return request(url, data, 'GET')
+}
+
+function post(url, data = {}) {
+  return request(url, data, 'POST')
+}
+
+/**
+ * 检查微信会话是否过期
+ */
+function checkSession() {
+  return new Promise(function (resolve, reject) {
+    wx.checkSession({
+      success: function () {
+        resolve(true);
+      },
+      fail: function () {
+        reject(false);
+      }
+    })
+  });
+}
+
+/**
+ * 调用微信登录
+ */
+function login() {
+  return new Promise(function (resolve, reject) {
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          resolve(res.code);
+        } else {
+          reject(res);
+        }
+      },
+      fail: function (err) {
+        reject(err);
+      }
+    });
+  });
+}
+
+function getUserInfo() {
+  return new Promise(function (resolve, reject) {
+    wx.getUserInfo({
+      withCredentials: true,
+      success: function (res) {
+        if (res.detail.errMsg === 'getUserInfo:ok') {
+          resolve(res);
+        } else {
+          reject(res)
+        }
+      },
+      fail: function (err) {
+        reject(err);
+      }
+    })
+  });
+}
+
+function redirect(url) {
+
+  //判断页面是否需要登录
+  if (false) {
+    wx.redirectTo({
+      url: '/pages/auth/login/login'
+    });
+    return false;
+  } else {
+    wx.redirectTo({
+      url: url
+    });
+  }
+}
+
+function showErrorToast(msg) {
+  wx.showToast({
+    title: msg,
+    image: '/static/images/icon_error.png'
+  })
+}
+
+function showNomalToast(msg) {
+  wx.showToast({
+    title: msg,
+    image: ''
+  })
+}
+function regexConfig() {
+  var reg = {
+    email: /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/,
+    phone: /^1(3|4|5|7|8)\d{9}$/
+  }
+  return reg;
+}
+function getCurrentPageUrl(pageObj) {
+  return pageObj.route
+}
+
+/*获取当前页带参数的url*/
+function getCurrentPageUrlWithArgs(pageObj) {
+  var url = pageObj.route    //当前页面url
+  var options = pageObj.options    //如果要获取url中所带的参数可以查看options
+
+  //拼接url的参数
+  var urlWithArgs = url + '?'
+  for (var key in options) {
+    var value = options[key]
+    urlWithArgs += key + '=' + value + '&'
+  }
+  urlWithArgs = urlWithArgs.substring(0, urlWithArgs.length - 1)
+  return urlWithArgs
+}
+
+module.exports = {
+  formatTime,
+  request,
+  get,
+  post,
+  redirect,
+  showErrorToast,
+  showNomalToast,
+  checkSession,
+  login,
+  regexConfig,
+  getUserInfo, 
+  getCurrentPageUrl: getCurrentPageUrl,
+  getCurrentPageUrlWithArgs: getCurrentPageUrlWithArgs
+}
+
+

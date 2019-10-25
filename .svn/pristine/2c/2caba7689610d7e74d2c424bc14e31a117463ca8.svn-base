@@ -1,0 +1,71 @@
+<view class="container">
+    <view class="order-info">
+        <view class="item-a">订单编号：{{orderInfo.OrderId}}</view>
+        <view class="item-a">P.O.：{{orderInfo.PurchaseOrder}}</view>
+        <view class="item-a">订单类型：{{orderInfo.strOrderType}}</view>
+        <view class="item-a">订单状态：{{orderInfo.strStatus}}</view>
+        <view class="item-a">送货方式：{{orderInfo.strDeliveryPayType}}</view>
+        <view class="item-a">快递运费：{{orderInfo.strFreight}}</view>
+        <view class="item-a">运输公司：{{orderInfo.strShippingCompany}}</view>
+        <view class="item-a">物流单号：{{orderInfo.ShipmentNumber}}</view>
+        <view class="item-b">下单时间：{{orderInfo.CreateLocalDate}}</view>
+        <view class="item-c">
+            <view class="l"><text class="cost">总额：{{orderInfo.CurrencySymbol}}{{orderInfo.strAmount}}</text></view>
+            <view class="r" style="display:none;">
+                <view class="btn active" bindtap="payOrder" wx:if="{{orderInfo.blShowPayBtn}}">去付款</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="order-goods">
+        <view class="h">
+            <view class="label">商品信息</view>
+            <!--<view class="status">{{orderInfo.order_status_text}}</view>-->
+        </view>
+        <view class="goods">
+            <view class="item" wx:for="{{orderInfo.OrderItemViewModelList}}" wx:key="{{item.ItemId}}">
+                <!--<view class="img">
+                    <image src="{{item.list_pic_url}}" lazy-load='true' mode="aspectFit"></image>
+                </view>-->
+                <view class="info">
+                    <view class="t">
+                        <text class="name">{{item.OrderProductDesc}}</text>
+                        <text class="number">{{orderInfo.CurrencySymbol}}{{item.UnitCost}}x{{item.Quantity}}</text>
+                    </view>
+                    
+                    <view class="attr" wx:if="{{item.Discount>0}}">折扣：-{{item.Discount}}%</view>
+                    <view class="attr" wx:if="{{orderInfo.RebateDiscount>0}}">返利：-{{orderInfo.RebateDiscount}}%</view>
+                    <view class="price">{{orderInfo.CurrencySymbol}}{{item.SubTotal}}</view>
+
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="order-bottom">
+        <view class="address">
+            <view class="t">
+                <text class="name">{{orderInfo.DeliveryFirstName}}</text>
+                <text class="mobile">{{orderInfo.DeliveryPhoneNumber}}</text>
+            </view>
+            <view class="b">{{orderInfo.DeliveryAddress}}</view>
+            <view class="b">{{orderInfo.PostCode}}</view>
+        </view>
+        </view>
+        <view class="order-bottom">
+        <view class="total">
+            <view class="t">
+                <text class="label">商品金额：</text>
+                <text class="txt">{{orderInfo.CurrencySymbol}}{{orderInfo.TotalProductPrice}}</text>
+            </view>
+            <view class="t">
+                <text class="label">运费：</text>
+                <text class="txt">{{orderInfo.CurrencySymbol}}{{orderInfo.strFreight}}</text>
+            </view>
+        </view>
+        <view class="pay-fee">
+            <text class="label">总额：</text>
+            <text class="txt">{{orderInfo.CurrencySymbol}}{{orderInfo.strAmount}}</text>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,12 @@
+<view class="add-address">
+      <view class="form-item">
+            当前登录名：{{userInfo.AccountName}}
+      </view>
+      <view class="form-item"  wx:if="{{userInfo.bindWeChat}}">
+            已绑定微信：【{{userInfo.OpenUserNickName}}】<button catchtap="unbindWeChat">解除绑定</button>
+      </view>
+      
+      <view class="form-item"  wx:if="{{!userInfo.bindWeChat}}">
+            未绑定微信：<button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class="btnblindwechat">马上绑定</button><!--<button catchtap="bindWeChat">马上绑定</button>-->
+      </view>
+    </view>

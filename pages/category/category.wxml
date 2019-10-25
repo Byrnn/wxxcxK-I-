@@ -1,0 +1,31 @@
+<view class="container">
+    <view class="cate-nav">
+        <scroll-view scroll-x="true" class="cate-nav-body" style="width: 750rpx;" scroll-left="{{scrollLeft}}">
+            <view  wx:for="{{navList}}" class="item " data-id="{{item.id}}" data-index="{{index}}" bindtap="switchCate">
+                <view class="name {{ currentCategory.id == item.id ? 'catesel' : ''}}">{{item.name}}</view>
+            </view>
+            <!--<view class="item"><text class="name catesel">{{currentCategory.name}}</text></view>-->
+        </scroll-view>
+    </view>
+    <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" style="height:{{scrollHeight}};">
+
+    <view class="cate-item">
+        <view class="h">
+            <!--view><text class="name">{{currentCategory.name}}</text></view>
+            <text class="desc">{{currentCategory.front_name}}</text-->
+        </view>
+        <view class="b">
+            <navigator class="item {{(iindex + 1) % 2 == 0 ? 'item-b' : ''}}"   url="/pages/goods/goods?id={{iitem.id}}" wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex" >
+                <image class="img" src="{{iitem.list_pic_url}}" background-size="cover"></image>
+                <text class="name">{{iitem.code}}</text>
+                <text class="name">{{iitem.name}}</text>
+                
+                <view class="price">
+                  <view class="l"><text class="price-lowst-text">低至</text><text class="price-red-text">￥{{iitem.retail_price}}</text></view>
+                  <view class="r"><text class="saletotal-text">{{iitem.SaleTotal>0?" (热销"+iitem.SaleTotalStr+")":""}}</text></view>
+                </view>
+            </navigator>
+        </view>
+    </view>
+    </scroll-view>
+</view>

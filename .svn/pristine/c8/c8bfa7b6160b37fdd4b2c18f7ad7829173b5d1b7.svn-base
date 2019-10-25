@@ -1,0 +1,29 @@
+/*.myprogress{margin:5px 0}*/
+.content{text-align: center}
+.logo{margin-top: 100rpx;margin-bottom: 100rpx}
+.logo image{width:400rpx;height: 100rpx}
+.input-area{
+    background-color: #fff;
+    text-align: left;
+    padding:0 5%;
+    /*border-top:1px solid #e5e5e5;
+    border-bottom:1px solid #e5e5e5;*/
+}
+.input-area input{height:100rpx;line-height: 100rpx;}
+#username,#password{border-bottom:1px solid #e5e5e5}
+.btn-area{width:90%;margin: 0 auto;}
+.btn-area button{
+    /*background-color:#51805c;*/
+    margin-top: 60rpx;
+    color: #fff
+}
+.txt-area{
+    margin-top: 50rpx;
+    display: flex;
+    justify-content:space-between;
+    font-size: 60rpx
+}
+.forgot-password{color: #01b166}
+.register{color:#01b166}
+.gohomepage{color:#01b166}
+.forgot-password:active,.register:active{opacity: 0.7}
